@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+  font: 15px helvetica,arial,freesans,clean,sans-serif;
+  margin: 20px auto;    
+  text-align: center;
+  max-width: 900px;
+}
+#waveform{
+  width: 100%;
+  background: rgba(0,0,0,0.8);
+}
+#wave-spectrogram{
+  margin: 10px auto;
+  position: relative;
+}
+#wave-spectrogram canvas{
+  left: 0;
+}
+
+button{
+  background: #eee;
+  border: 1px solid #ddd;
+  border-bottom: 4px solid #ccc;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 10px;
+}
+button:active{
+  outline: none;
+  border-top: 4px solid #eee;
+  border-bottom: 2px solid #777;
+}
+button:focus{
+  outline: none;
+}
+</style>
+
+<title>WaveSurfer.js - spectrogram with frequency labels</title>
+  
+</head>
+
+<body>
+
+<h1>WaveSurfer.js - spectrogram with frequency labels</h1>
+<h4>
+  <a target="_blank" href="https://github.com/entonbiba/wavesurfer-spectrogram-with-frequency-labels">Example reference on github.com</a>
+</h4>
+
+<div id="waveform"></div>
+
+<div id="wave-spectrogram"></div>
+
+<button class="btn btn-primary" onclick="wavesurfer.playPause()">
+  <i class="glyphicon glyphicon-play"></i>
+  Play/Pause
+</button>
+
+<script>
+var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: '#D2EDD4',
+    progressColor: '#46B54D'
+});
+
+wavesurfer.on('ready', function () {
+  var spectrogram = Object.create(WaveSurfer.Spectrogram);
+  spectrogram.init({
+    wavesurfer: wavesurfer,
+    container: "#wave-spectrogram",
+    fftSamples: 1024,
+    labels: true
+  });
+});
+
+wavesurfer.load('http://wavesurfer-js.org/example/media/demo.wav');
+</script>
+
+</body>
+</html>
